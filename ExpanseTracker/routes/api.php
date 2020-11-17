@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ExpenseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,14 +14,14 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+
+Route::middleware('auth :api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/list-expenses',[ExpenseController::class,'index']);
+Route::post('/expenses',[ExpenseController::class,'index']);
+Route::post('/store-expenses', [ExpenseController::class,'store']);
+Route::get('/expenses/{expense}',[ExpenseController::class, 'show']);
+Route::put('/expenses/{expense}', [ExpenseController::class,'update']);
+Route::delete('/expenses/{expense}', [ExpenseController::class,'destroy']);
 
-Route::post('/login', 'UserController@login');
-Route::post('/register', 'UserController@register');
-Route::get('/logout', 'UserController@logout');
-
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });

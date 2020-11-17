@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import apiClient from '../services/api';
+import axios from 'axios';
 
 const Login = (props) => {
     const [email, setEmail] = React.useState('');
@@ -12,9 +12,10 @@ const Login = (props) => {
         e.preventDefault();
         setAuthError(false);
         setUnknownError(false);
-        apiClient.get('/sanctum/csrf-cookie')
+        axios.defaults.withCredentials = true;
+        axios.get('/sanctum/csrf-cookie')
         .then(response => {
-            apiClient.post('/login', {
+            axios.post('/login', {
                 email: email,
                 password: password
             }).then(response => {
