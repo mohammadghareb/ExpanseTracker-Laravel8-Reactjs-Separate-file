@@ -7,16 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class ExpenseController extends Controller
 {
-    
     public function index()
     {   
          $user_id=Auth::id();
          $expenses = Expense::where('user_id',$user_id)->get();
-        return response()->json($expenses);
+         return response()->json($expenses);
     }
-
-   
-
     /**
      * Store a newly created resource in storage.
      *
@@ -25,18 +21,18 @@ class ExpenseController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'name' => 'required',
-        //     'amount' => 'required',
-        //     'description' => 'required' 
-        // ]);
+            $request->validate([
+            'name' => 'required',
+            'amount' => 'required',
+            'description' => 'required' 
+        ]);
         $expense =  Expense::create([
             'user_id' => Auth::id(),
             'name' => $request->input('name'),
             'amount' => $request->input('amount'),
             'description' => $request->input('description'),
         ]);
-       // $expense = Expense::create($request->all());
+       
         return response()->json(['message'=> 'expense created', 
         'expense' => $expense]);
     }
@@ -74,7 +70,6 @@ class ExpenseController extends Controller
             'description' => 'required' 
         ]);
        $expense->update($request->all());
-        
         return response()->json([
             'message' => 'expense updated!',
             'expense' => $expense
@@ -89,8 +84,6 @@ class ExpenseController extends Controller
      */
     public function destroy(Expense $expense)
     {
-
-
         $expense->delete();
         return response()->json([
             'message' => 'expense deleted'

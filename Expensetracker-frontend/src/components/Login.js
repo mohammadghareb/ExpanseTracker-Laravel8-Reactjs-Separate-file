@@ -4,11 +4,11 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const Login = (props) => {
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
-    const [toHome, setToHome] = React.useState(false);
-    const [authError, setAuthError] = React.useState(false);
-    const [unknownError, setUnknownError] = React.useState(false);
+    let [email, setEmail] = React.useState('');
+    let [password, setPassword] = React.useState('');
+    let [authError, setAuthError] = React.useState(false);
+    let [unknownError, setUnknownError] = React.useState(false);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setAuthError(false);
@@ -20,12 +20,12 @@ const Login = (props) => {
                 email: email,
                 password: password
             }).then(response => {
+                //No Need to use 200 with axios 
                 if (response.status === 200) {
                     Swal.fire({
                         title: 'Successfully Login',
                         icon: 'success', })
                     props.login();
-                    setToHome(true);
                 }
             }).catch(error => {
                 if (error.response && error.response.status === 422) {
@@ -37,15 +37,13 @@ const Login = (props) => {
             });
         });
     }
-    if (toHome === true) {
-        return <Redirect to='/' />
-    }
+  
     return (
         <div>
-            <h3>Login</h3>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <input
+                <h3>Login</h3>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <input
                         type="email"
                         name="email"
                         className={"form-control" + (authError || unknownError ? ' is-invalid' : '')}
@@ -73,5 +71,4 @@ const Login = (props) => {
         </div>
     );
 };
-
 export default Login;

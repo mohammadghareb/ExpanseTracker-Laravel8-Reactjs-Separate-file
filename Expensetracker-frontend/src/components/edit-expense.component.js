@@ -51,7 +51,6 @@ export default class EditExpense extends Component {
 
   onSubmit(e) {
     e.preventDefault()
-
     const expenseObject = {
       name: this.state.name,
       amount: this.state.amount,
@@ -66,14 +65,14 @@ export default class EditExpense extends Component {
       }).catch((error) => {
         console.log(error)
       })
-
     // Redirect to Expense List 
     this.props.history.push('/expenses-listing')
   }
 
 
   render() {
-    return (<div className="form-wrapper">
+    return (
+    <div className="form-wrapper">
       <Form onSubmit={this.onSubmit}>
         <Form.Group controlId="Name">
           <Form.Label>Name</Form.Label>

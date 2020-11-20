@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 import ExpenseTableRow from './ExpenseTableRow';
 import Axios from 'axios';
 
+
 export default class ExpenseList extends Component {
   constructor(props) {
     super(props)
@@ -12,7 +13,6 @@ export default class ExpenseList extends Component {
   }
 
   componentDidMount() {
-
     Axios.get('/api/list-expenses/')
       .then(res => {
         this.setState({
@@ -23,13 +23,12 @@ export default class ExpenseList extends Component {
         console.log(error);
       })
   }
-
   DataTable() {
     return this.state.expenses.map((res, i) => {
       return <ExpenseTableRow obj={res} key={i} />;
     });
   }
-
+//You have to use private function 
 
   render() {
     if(sessionStorage.getItem('loggedIn')== 'true')
@@ -41,7 +40,7 @@ export default class ExpenseList extends Component {
               <tr>
                 <th>Name</th>
                 <th>Amount</th>
-                <th>Description</th>
+                <th>Category</th>
                 <th>Action</th>
               </tr>
             </thead>

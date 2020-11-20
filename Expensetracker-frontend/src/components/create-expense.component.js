@@ -3,10 +3,8 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import ExpensesList from './expenses-listing.component';
 import Swal from 'sweetalert2';
 import Axios from 'axios';
-
 
 export default class CreateExpense extends Component {
     constructor(props) {
@@ -55,11 +53,7 @@ export default class CreateExpense extends Component {
         icon: 'error',
         title: 'Oops...',
         text: 'Something went wrong!',
-                     })
-                    }
-    }
-      
-    )
+                     }) }})
     this.setState({name: '', amount: '', description: ''})
   }
 
@@ -69,9 +63,12 @@ export default class CreateExpense extends Component {
     return (
       
     <div className="form-wrapper">
+                  <h1> Create Your Expense</h1>
+                <br></br>
       <Form onSubmit={this.onSubmit}>
         <Row> 
             <Col>
+        
              <Form.Group controlId="Name">
                 <Form.Label>Name</Form.Label>
                 <Form.Control type="text" value={this.state.name} onChange={this.onChangeExpenseName}/>
@@ -85,30 +82,23 @@ export default class CreateExpense extends Component {
              </Form.Group>
             </Col>  
         </Row>
-            
         <Form.Group controlId="description">
-          <Form.Label>Description</Form.Label>
+          <Form.Label>Category</Form.Label>
                 <Form.Control as="textarea" type="textarea" value={this.state.description} onChange={this.onChangeExpenseDescription}/>
         </Form.Group>
-        
         <Button variant="primary" size="lg" block="block" type="submit">
           Add Expense
         </Button>
       </Form>
-      <br></br>
-      <br></br>
-
-      <ExpensesList> </ExpensesList>
     </div>);
   }
-
+  
   else{
     return (
      <div className="alert alert-warning" >You are not loggen in.   </div>
     );
 
    }
-
 
 }
 }

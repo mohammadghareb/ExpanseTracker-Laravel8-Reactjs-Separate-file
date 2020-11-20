@@ -3,14 +3,17 @@ import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-
+import ExpenseList from './expenses-listing.component';
 
 export default class ExpenseTableRow extends Component {
-    constructor(props) {
+    constructor(props) {    
         super(props);
+        this.state = {
+            expenses: []
+          };
         this.deleteExpense = this.deleteExpense.bind(this);
     }
-
+         
     deleteExpense() {
         Swal.fire({
             title: 'Are you sure?',
@@ -28,15 +31,14 @@ export default class ExpenseTableRow extends Component {
                         'Deleted!',
                         'Your file has been deleted.',
                         'success'
-                      )   
+                      ) .then((res) =>{
+                        window.location.reload();           
+                      }
+                      )                      
                 }).catch((error) => {
                     console.log(error)
-                })
-             
-            }
-          })
-        
-    }
+                })  }})   }
+                
     render() {
         return (
             <tr>
